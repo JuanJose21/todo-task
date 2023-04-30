@@ -1,0 +1,71 @@
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": false
+  },
+  "files.exclude": {
+    "**/node_modules": true
+  },
+  "editor.renderWhitespace": "boundary",
+  "editor.tabSize": 2,
+  "editor.wordWrapColumn": 100,
+  "eslint.format.enable": true,
+  "eslint.packageManager": "npm",
+  "eslint.validate": ["typescript", "javascript", "json"],
+  "eslint.trace.server": "messages",
+  "javascript.preferences.quoteStyle": "single",
+  "typescript.preferences.quoteStyle": "single",
+  "typescript.suggest.completeFunctionCalls": true,
+  "diffEditor.ignoreTrimWhitespace": false,
+  "html.format.maxPreserveNewLines": 1,
+  "html.format.wrapAttributes": "aligned-multiple",
+  "typescript.format.insertSpaceAfterTypeAssertion": true,
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[scss]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "importSorter.importStringConfiguration.tabSize": 2,
+  "importSorter.sortConfiguration.removeUnusedImports": true,
+  "importSorter.importStringConfiguration.maximumNumberOfImportExpressionsPerLine.type": "newLineEachExpressionAfterCountLimit",
+  "importSorter.generalConfiguration.sortOnBeforeSave": true,
+  "importSorter.generalConfiguration.exclude": [
+    ".*/mfp-proxy-server/src/main.ts"
+  ],
+  "multiCommand.commands": [
+    {
+      "command": "multiCommand.formatAndSave",
+      "sequence": [
+        "editor.action.formatDocument",
+        "multiCommand.eslintAutofix",
+        "multiCommand.save"
+      ]
+    },
+    {
+      "command": "multiCommand.eslintAutofix",
+      "interval": 2000,
+      "sequence": ["eslint.executeAutofix"]
+    },
+    {
+      "command": "multiCommand.save",
+      "sequence": ["workbench.action.files.save"]
+    }
+  ]
+}

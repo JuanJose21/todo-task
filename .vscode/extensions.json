@@ -1,4 +1,14 @@
 {
-  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=827846
-  "recommendations": ["angular.ng-template"]
+  "recommendations": [
+    "esbenp.prettier-vscode",
+    "doggy8088.angular-extension-pack",
+    "mike-co.import-sorter",
+    "dbaeumer.vscode-eslint",
+    "stylelint.vscode-stylelint",
+    "kisstkondoros.vscode-codemetrics",
+    "firsttris.vscode-jest-runner",
+    "nrwl.angular-console",
+    "ryuta46.multi-command"
+  ],
+  "unwantedRecommendations": ["obenjiro.arrr"]
 }
