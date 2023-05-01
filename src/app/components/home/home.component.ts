@@ -23,6 +23,7 @@ export class HomeComponent implements OnInit {
   bsubmitted = false;
   tsubmitted = false;
   taskErr!: string;
+  today = new Date().toISOString().split('T')[0];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -36,7 +37,7 @@ export class HomeComponent implements OnInit {
     this.ngxService.start();
     this.user = JSON.parse(localStorage.getItem('currentUser') || '{}');
     if (this.user !== null || Object.keys(this.user).length !== 0) {
-      this.bookmarkService.get(this.user.username).subscribe(
+      this.bookmarkService.get(this.user.email).subscribe(
         (data) => {
           this.responseValue = data;
           if (this.responseValue.result !== 'error') {
@@ -57,7 +58,7 @@ export class HomeComponent implements OnInit {
           this.ngxService.stop();
         }
       );
-      this.taskService.get(this.user.username).subscribe(
+      this.taskService.get(this.user.email).subscribe(
         (data) => {
           this.responseValue = data;
           if (this.responseValue.result !== 'error') {
@@ -93,7 +94,7 @@ export class HomeComponent implements OnInit {
       url: ['', Validators.required],
       name: ['', Validators.required],
       desc: [''],
-      username: [this.user ? this.user.username : ''],
+      email: [this.user ? this.user.email : ''],
       date: [new Date()],
     });
   }
@@ -101,8 +102,10 @@ export class HomeComponent implements OnInit {
   clearTaskForm() {
     this.taskForm = this.formBuilder.group({
       id: [this.generateRandomId()],
-      task: ['', Validators.required],
-      username: [this.user ? this.user.username : ''],
+      title: ['', Validators.required],
+      description: ['', Validators.required],
+      expiration: ['', Validators.required],
+      email: [this.user ? this.user.email : ''],
       date: [new Date()],
       status: [true],
     });
@@ -171,7 +174,7 @@ export class HomeComponent implements OnInit {
   }
 
   generateRandomId() {
-    return Math.random().toString(36).substring(10);
+    return Math.random().toString(36).substring(8);
   }
 
   onCheckChange(task: any, event: any) {
@@ -221,5 +224,14 @@ export class HomeComponent implements OnInit {
         this.ngxService.stop();
       }
     );
+  }
+
+  singOut() {
+    localStorage.removeItem('currentUser');
+    this.router.navigate(['/login']);
+  }
+
+  compareDates(dateInitial: string, dateEnd: string) {
+    return Date.parse(dateInitial) <= Date.parse(dateEnd);
   }
 }

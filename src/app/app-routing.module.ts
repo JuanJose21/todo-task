@@ -14,7 +14,12 @@ const routes: Routes = [
     canLoad: [LoginGuard],
     canActivate: [LoginGuard],
   },
-  { path: 'register', component: RegisterComponent },
+  {
+    path: 'register',
+    component: RegisterComponent,
+    canLoad: [LoginGuard],
+    canActivate: [LoginGuard],
+  },
   {
     path: 'home',
     component: HomeComponent,

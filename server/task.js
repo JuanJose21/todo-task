@@ -38,14 +38,14 @@ module.exports = function (app) {
     let taskList = [];
     let result = {};
     fs.readFile(
-      "appFiles/" + request.username + "/tasks.json",
+      "appFiles/" + request.email + "/tasks.json",
       "utf8",
       (err, data) => {
         if (err) {
           taskList = [];
-          request = writeData(taskList, request, request.username);
+          request = writeData(taskList, request, request.email);
           result = {
-            message: "Success: Task added successfully",
+            message: "Tarea registrada correctamente",
             result: "success",
           };
         } else {
@@ -54,9 +54,9 @@ module.exports = function (app) {
           } else {
             taskList = JSON.parse(data);
           }
-          request = writeData(taskList, request, request.username);
+          request = writeData(taskList, request, request.email);
           result = {
-            message: "Success: Task added successfully",
+            message: "Tarea registrada correctamente",
             result: "success",
           };
         }
@@ -74,7 +74,7 @@ module.exports = function (app) {
       if (err) {
         taskList = [];
         result = {
-          message: "Error: No Task found for the user",
+          message: "Error: El usuario no tiene tareas registradas",
           result: "error",
         };
       } else if (data) {
@@ -87,10 +87,10 @@ module.exports = function (app) {
           taskList !== undefined &&
           taskList !== null &&
           taskList.length > 0 &&
-          taskList[0].username === id
+          taskList[0].email === id
         ) {
           result = {
-            message: "Success: User task retrieved successfully",
+            message: "Tareas del usuario",
             result: "success",
             value: taskList,
           };
@@ -102,14 +102,14 @@ module.exports = function (app) {
 
   app.post("/api/entity/delete/task", (req, res) => {
     res = setHeader(res);
-    const id = req.body.username;
+    const id = req.body.email;
     const request = req.body;
     let taskList = [];
     let result = {};
     fs.readFile("appFiles/" + id + "/tasks.json", "utf8", (err, data) => {
       if (err) {
         result = {
-          message: "Error: No Task found for the user",
+          message: "Error: El usuario no tiene tareas registradas",
           result: "error",
         };
       } else {
@@ -127,11 +127,11 @@ module.exports = function (app) {
                 taskList.splice(taskList.indexOf(task), 1);
               }
             });
-            writeData(taskList, null, request.username);
+            writeData(taskList, null, request.email);
           }
         }
         result = {
-          message: "Success: User task removed successfully",
+          message: "Tarea eliminada correctamente",
           result: "success",
         };
         return res.status(200).json(result);
@@ -141,14 +141,14 @@ module.exports = function (app) {
 
   app.put("/api/entity/task", (req, res) => {
     res = setHeader(res);
-    const id = req.body.username;
+    const id = req.body.email;
     const request = req.body;
     let taskList = [];
     let result = {};
     fs.readFile("appFiles/" + id + "/tasks.json", "utf8", (err, data) => {
       if (err) {
         result = {
-          message: "Error: No Task found for the user",
+          message: "Error: El usuario no tiene tareas registradas",
           result: "error",
         };
       } else {
@@ -166,11 +166,11 @@ module.exports = function (app) {
                 taskList[taskList.indexOf(task)] = request;
               }
             });
-            writeData(taskList, null, request.username);
+            writeData(taskList, null, request.email);
           }
         }
         result = {
-          message: "Success: User task updated successfully",
+          message: "Tarea actualizada correctamente",
           result: "success",
         };
         return res.status(200).json(result);

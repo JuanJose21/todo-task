@@ -3,9 +3,7 @@ module.exports = function (app) {
 
   function writeData(userList, request) {
     let user = {
-      name: request.name,
       email: request.email,
-      username: request.username,
       password: request.password,
     };
     userList.push(user);
@@ -24,7 +22,7 @@ module.exports = function (app) {
     // validate request null or empty
     if (Object.keys(request).length === 0) {
       result = {
-        message: "Error: Invalid request",
+        message: "Error: Request invalido",
         result: "error",
       };
       return res.status(200).json(result);
@@ -34,22 +32,22 @@ module.exports = function (app) {
         userList = [];
         request = writeData(userList, request);
         result = {
-          message: "Success: User registered successfully",
+          message: "Success: Usuario registrado correctamente",
           result: "success",
         };
       } else if (data) {
         userList = JSON.parse(data);
         userList.forEach(function (u) {
-          if (u.email === request.email || u.username === request.username) {
+          if (u.email === request.email) {
             result = {
-              message: "Error: Email already exists",
+              message: "Error: Email o usuario ya registrado",
               result: "error",
             };
             console.log(result);
           } else {
             request = writeData(userList, request);
             result = {
-              message: "Success: User registered successfully",
+              message: "Usuario registrado correctamente",
               result: "success",
             };
           }
@@ -57,7 +55,7 @@ module.exports = function (app) {
       } else {
         request = writeData([], request);
         result = {
-          message: "Success: User registered successfully",
+          message: "Usuario registrado correctamente",
           result: "success",
         };
       }
@@ -70,7 +68,7 @@ module.exports = function (app) {
     let result = {};
     if (Object.keys(request).length === 0) {
       result = {
-        message: "Error: Invalid request",
+        message: "Error: Request invalido",
         result: "error",
       };
       return res.status(200).json(result);
@@ -78,25 +76,24 @@ module.exports = function (app) {
     fs.readFile("appFiles/users.json", "utf8", (err, data) => {
       if (err) {
         result = {
-          message: "Error: Invalid request",
+          message: "Error: Request invalido",
           result: "error",
         };
         return res.status(200).json(result);
       } else if (data) {
         const userList = JSON.parse(data);
         const user = userList.find(
-          (u) =>
-            u.username === request.username && u.password === request.password
+          (u) => u.email === request.email && u.password === request.password
         );
         if (user) {
           result = {
-            message: "Success: User logged in successfully",
+            message: "Inicio de sesión correcto",
             result: "success",
             value: user,
           };
         } else {
           result = {
-            message: "Error: Invalid credentials",
+            message: "Error: Credenciales invalidas",
             result: "error",
           };
         }

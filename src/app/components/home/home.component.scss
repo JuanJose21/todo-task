@@ -1,0 +1,21 @@
+.dates-text {
+  font-size: 0.9rem;
+  p {
+    margin-bottom: 0;
+  }
+}
+
+.container-title {
+  position: relative;
+  .sign-out {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+}
+
+.card {
+  &.is-checked {
+    background-color: #d3ffdb;
+  }
+}
